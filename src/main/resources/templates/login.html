@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th ="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      >
+<head>
+    <meta charset="UTF-8"/>
+    <title>Produits</title>
+        <link rel="stylesheet" type="text/css"
+        href="../static/css/bootstrap.css"
+        th:href="@{css/bootstrap.css}"/>
+    <link rel="stylesheet" type="text/css"
+          href="../static/css/style.css"
+          th:href="@{css/style.css}"/>
+
+</head>
+<body>
+   <div class="spacer col-md-6 col-md-offset-3 col-xs-12">
+       <div class="container">
+           <span class="red" th:if="${param.error}">
+               Incorrect username or password
+           </span>
+           <span class="red" th:if="${param.logout}">
+               Vous avez été déconnecté !
+           </span>
+       </div>
+       <div class="card">
+           <div class="card-header border-dark<">Authentification</div>
+           <div class="card-body">
+               <form th:action="@{/login}" method="post">
+                   <div class="form-group">
+                       <label class="font-weight-bold">Login :</label>
+                       <input class="form-control" type="text" name="username"/>
+                   </div>
+                    <div class="form-group">
+                       <label class="font-weight-bold">Password :</label>
+                       <input class="form-control" type="password" name="password"/>
+                    </div>
+                <div>
+                <button type="submit" class="btn btn-lg btn-primary btn-block">Sign in</button>
+            </div>
+               </form>
+       </div>
+       </div>
+   </div>
+</div>
+</body>
+</html>

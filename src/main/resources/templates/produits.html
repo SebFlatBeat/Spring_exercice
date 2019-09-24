@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th ="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Produits</title>
+        <link rel="stylesheet" type="text/css"
+        href="../static/css/bootstrap.css"
+        th:href="@{css/bootstrap.css}"/>
+</head>
+<body>
+<div layout:fragment="content">
+    <div class="container">
+        <form th:action="@{/user/index}" method="get">
+            <label>Mot Clé:</label>
+            <input type="text" name="mc" th:value="${mc}">
+            <button class="btn btn-primary">Chercher</button>
+        </form>
+        <h3>Liste des produits</h3>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>ID</th><th>Désignation</th><th>Prix</th><th>Quantité</th>
+                    </tr>
+                </thead>
+                    <tbody>
+                        <tr th:each="p:${listProduits}">
+                        <td th:text="${p.id}"></td>
+                        <td th:text="${p.designation}"></td>
+                        <td th:text="${p.prix}"></td>
+                        <td th:text="${p.quantite}"></td>
+                            <td><a th:href="@{/admin/edit(id=${p.id})}">Edit</a></td>
+                            <td><a onclick="return confirm('Etes-vous sûr de vouloir supprimer ce produit?')" th:href="@{/admin/delete(id=${p.id}, page=${pageCourante}, size=${size}, mc=${mc})}">Delete</a></td>
+                        </tr>
+                    </tbody>
+            </table>
+    </div>
+<div class="container">
+    <ul class="pagination">
+        <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+        <li class="page-item" th:class="${pageCourante}==${status.index}?'active': ''" th:each="pa,status:${pages}">
+            <a class="page-link" th:href="@{/user/index(page=${status.index},size=${size},mc=${mc})}" th:text="${status.index}"></a>
+        </li>
+        <li class="page-item"><a class="page-link" href="#">Next</a></li>
+    </ul>
+</div>
+</div>
+</body>
+</html>
